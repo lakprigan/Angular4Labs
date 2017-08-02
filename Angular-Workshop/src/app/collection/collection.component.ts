@@ -1,26 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { IBook } from 'app/ibook';
+import { IBook } from '../ibook';
+import { MdSnackBar } from "@angular/material";
 
 @Component({
-  selector: 'my-collection',
-  templateUrl: './collection.component.html',
-  styleUrls: ['./collection.component.css']
+    selector: 'my-collection',
+    templateUrl: './collection.component.html',
+    styleUrls: ['./collection.component.css']
 })
 export class CollectionComponent implements OnInit {
 
-  constructor() {
-    this.startTime = new Date();
-    this.startTime.setHours(10, 0);
-    this.endTime = new Date();
-    this.endTime.setHours(15, 0);
-  }
+    constructor(private _snackBar: MdSnackBar) {
+        this.startTime = new Date();
+        this.startTime.setHours(10, 0);
+        this.endTime = new Date();
+        this.endTime.setHours(15, 0);
+    }
 
-  ngOnInit(): void {
-}
+    ngOnInit(): void {
 
-  pageTitle:string = 'Books';
+    }
 
-    public books:Array<IBook> = 
+    pageTitle: string = 'Books';
+
+    public books: Array<IBook> =
     [
         {
             id: 1,
@@ -52,9 +54,22 @@ export class CollectionComponent implements OnInit {
         }
     ];
 
-  startTime:Date;
+    startTime: Date;
 
-  endTime:Date;
+    endTime: Date;
 
-  showOperatingHours:boolean = false;
+    showOperatingHours: boolean = false;
+
+    updateMessage(message: string, type: string): void {
+        if (message) {
+            this._snackBar.open(`${type}: ${message}`, 'DISMISS', {
+                duration: 3000
+            });
+        }
+    }
+
+    onRatingUpdate(book: IBook): void {
+        this.updateMessage(book.title, " Rating has been updated");
+    }
+
 }
