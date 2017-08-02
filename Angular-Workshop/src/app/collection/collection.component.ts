@@ -10,7 +10,7 @@ import { DataService } from '../services/data.service';
 })
 export class CollectionComponent implements OnInit {
 
-    constructor(private _dataService: DataService,private _snackBar: MdSnackBar) {
+    constructor(private _dataService: DataService, private _snackBar: MdSnackBar) {
         this.startTime = new Date();
         this.startTime.setHours(10, 0);
         this.endTime = new Date();
@@ -18,7 +18,8 @@ export class CollectionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.books = this._dataService.getBooks();
+        this.getBooks();
+
     }
 
     pageTitle: string = 'Books';
@@ -30,6 +31,13 @@ export class CollectionComponent implements OnInit {
     endTime: Date;
 
     showOperatingHours: boolean = false;
+
+    getBooks(): void {
+        this._dataService.getBooks()
+            .subscribe(
+            books => this.books = books,
+            error => this.updateMessage(<any>error, 'ERROR'));
+    }
 
     updateMessage(message: string, type: string): void {
         if (message) {
