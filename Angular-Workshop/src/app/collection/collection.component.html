@@ -1,0 +1,28 @@
+<h3>{{pageTitle}}&nbsp;
+  <md-slide-toggle class="plr-15" color="primary" [(ngModel)]="showOperatingHours">{{showOperatingHours ? 'Hide' : 'Show'}} library hours
+  </md-slide-toggle>
+</h3>
+<div [hidden]="!showOperatingHours">
+  <md-card>
+    <md-card-subtitle><strong>Operating Hours</strong></md-card-subtitle>
+    <md-card-content>{{startTime}} - {{endTime}} (M-F)</md-card-content>
+  </md-card>
+</div>
+<div>
+  <md-list>
+    <md-list-item *ngFor="let book of books">
+      <md-icon md-list-icon>book</md-icon>
+      <h3 md-line><strong>{{book.title}}</strong></h3>
+
+      <p md-line>
+        <span>{{book.author}}</span>
+      </p>
+      <p md-line>
+        {{book.rating}}
+      </p>
+      <p md-line>
+        <span [class]="book.isCheckedOut ? 'chip chip-danger' : 'chip chip-success'">{{book.isCheckedOut ? 'Checked-Out' : 'Available'}}</span>
+      </p>
+    </md-list-item>
+  </md-list>
+</div>
