@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IBook } from '../ibook';
 import { MdSnackBar } from "@angular/material";
+import { DataService } from '../services/data.service';
 
 @Component({
     selector: 'my-collection',
@@ -9,7 +10,7 @@ import { MdSnackBar } from "@angular/material";
 })
 export class CollectionComponent implements OnInit {
 
-    constructor(private _snackBar: MdSnackBar) {
+    constructor(private _dataService: DataService,private _snackBar: MdSnackBar) {
         this.startTime = new Date();
         this.startTime.setHours(10, 0);
         this.endTime = new Date();
@@ -17,42 +18,12 @@ export class CollectionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.books = this._dataService.getBooks();
     }
 
     pageTitle: string = 'Books';
 
-    public books: Array<IBook> =
-    [
-        {
-            id: 1,
-            title: "JavaScript - The Good Parts",
-            author: "Douglas Crockford",
-            isCheckedOut: true,
-            rating: 3
-        },
-        {
-            id: 2,
-            title: "The Wind in the Willows",
-            author: "Kenneth Grahame",
-            isCheckedOut: false,
-            rating: 4
-        },
-        {
-            id: 3,
-            title: "Pillars of the Earth",
-            author: "Ken Follett",
-            isCheckedOut: true,
-            rating: 5
-        },
-        {
-            id: 4,
-            title: "Harry Potter and the Prisoner of Azkaban",
-            author: "J. K. Rowling",
-            isCheckedOut: false,
-            rating: 5
-        }
-    ];
+    public books: Array<IBook>;
 
     startTime: Date;
 
