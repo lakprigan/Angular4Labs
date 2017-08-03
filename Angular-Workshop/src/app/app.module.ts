@@ -7,13 +7,16 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { CollectionComponent } from './collection/collection.component';
-import { RatingCategoryPipe } from './pipes/rating-category.pipe'
+import { RatingCategoryPipe } from './pipes/rating-category.pipe';
 import { RatingComponent } from './rating/rating.component';
 import { HttpModule } from "@angular/http";
-import { DataService } from './services/data.service';
+import { routing } from "./app.routing";
 import { TabsComponent } from './tabs/tabs.component';
 import { RouterModule } from "@angular/router";
-import { routing } from "./app.routing";
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookGuardService } from "./guards/book-guard.service";
+import { NewBookComponent } from './new-book/new-book.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,9 @@ import { routing } from "./app.routing";
     CollectionComponent,
     RatingCategoryPipe,
     RatingComponent,
-    TabsComponent
+    TabsComponent,
+    BookDetailComponent,
+    NewBookComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,10 @@ import { routing } from "./app.routing";
     RouterModule,
     routing
   ],
-  providers: [DataService],
-  bootstrap: [AppComponent]
+  providers: [BookGuardService],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    NewBookComponent
+  ]
 })
 export class AppModule { }
